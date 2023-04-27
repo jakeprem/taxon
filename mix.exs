@@ -49,7 +49,8 @@ defmodule Taxolinks.MixProject do
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.20"},
-      {:jason, "~> 1.2"}
+      {:jason, "~> 1.2"},
+      {:ecto_resource, "1.3.3"}
     ]
   end
 

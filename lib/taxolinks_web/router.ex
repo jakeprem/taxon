@@ -17,7 +17,14 @@ defmodule TaxolinksWeb.Router do
   scope "/", TaxolinksWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    get "/", Redirect, to: "/links"
+    live "/links", LinkLive.Index, :index
+    live "/links/new", LinkLive.Index, :new
+    live "/links/:id/edit", LinkLive.Index, :edit
+
+    live "/links/:id", LinkLive.Show, :show
+    live "/links/:id/show/edit", LinkLive.Show, :edit
+
     get "/*path", PageController, :stuff
   end
 
