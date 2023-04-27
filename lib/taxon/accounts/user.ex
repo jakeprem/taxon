@@ -48,11 +48,11 @@ defmodule Taxon.Accounts.User do
       invite_code = changeset.changes.invite_code
 
       case Invites.get_invite_code_by_code(invite_code) do
-        nil ->
-          add_error(changeset, :invite_code, "is invalid")
-
         %InviteCode{active: true} ->
           changeset
+
+        _ ->
+          add_error(changeset, :invite_code, "is invalid")
       end
     end)
   end
