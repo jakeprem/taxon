@@ -1,8 +1,8 @@
-defmodule TaxolinksWeb.LinkLiveTest do
-  use TaxolinksWeb.ConnCase
+defmodule TaxonWeb.LinkLiveTest do
+  use TaxonWeb.ConnCase
 
   import Phoenix.LiveViewTest
-  import Taxolinks.LinksFixtures
+  import Taxon.LinksFixtures
 
   @create_attrs %{destination: "some destination", name: "some name"}
   @update_attrs %{destination: "some updated destination", name: "some updated name"}

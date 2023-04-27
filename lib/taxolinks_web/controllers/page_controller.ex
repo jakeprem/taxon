@@ -1,8 +1,8 @@
-defmodule TaxolinksWeb.PageController do
-  use TaxolinksWeb, :controller
+defmodule TaxonWeb.PageController do
+  use TaxonWeb, :controller
 
-  alias Taxolinks.Links
-  alias Taxolinks.Links.Link
+  alias Taxon.Links
+  alias Taxon.Links.Link
 
   def home(conn, _params) do
     # The home page is often custom made,

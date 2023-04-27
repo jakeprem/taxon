@@ -1,7 +1,7 @@
-defmodule TaxolinksWeb.LinkLive.Show do
-  use TaxolinksWeb, :live_view
+defmodule TaxonWeb.LinkLive.Show do
+  use TaxonWeb, :live_view
 
-  alias Taxolinks.Links
+  alias Taxon.Links
 
   @impl true
   def mount(_params, _session, socket) do

@@ -1,5 +1,5 @@
-defmodule TaxolinksWeb.PageControllerTest do
-  use TaxolinksWeb.ConnCase
+defmodule TaxonWeb.PageControllerTest do
+  use TaxonWeb.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get(conn, ~p"/")

@@ -18,7 +18,7 @@
 
 <.modal :if={@live_action == :edit} id="link-modal" show on_cancel={JS.patch(~p"/links/#{@link}")}>
   <.live_component
-    module={TaxolinksWeb.LinkLive.FormComponent}
+    module={TaxonWeb.LinkLive.FormComponent}
     id={@link.id}
     title={@page_title}
     action={@live_action}

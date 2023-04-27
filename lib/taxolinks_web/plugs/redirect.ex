@@ -1,4 +1,4 @@
-defmodule TaxolinksWeb.Redirect do
+defmodule TaxonWeb.Redirect do
   @moduledoc """
   A plug to allow redirects directly in a router.
   """

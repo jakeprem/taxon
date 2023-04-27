@@ -1,4 +1,4 @@
-defmodule TaxolinksWeb.Telemetry do
+defmodule TaxonWeb.Telemetry do
   use Supervisor
   import Telemetry.Metrics
 
@@ -52,23 +52,23 @@ defmodule TaxolinksWeb.Telemetry do
       ),
 
       # Database Metrics
-      summary("taxolinks.repo.query.total_time",
+      summary("taxon.repo.query.total_time",
         unit: {:native, :millisecond},
         description: "The sum of the other measurements"
       ),
-      summary("taxolinks.repo.query.decode_time",
+      summary("taxon.repo.query.decode_time",
         unit: {:native, :millisecond},
         description: "The time spent decoding the data received from the database"
       ),
-      summary("taxolinks.repo.query.query_time",
+      summary("taxon.repo.query.query_time",
         unit: {:native, :millisecond},
         description: "The time spent executing the query"
       ),
-      summary("taxolinks.repo.query.queue_time",
+      summary("taxon.repo.query.queue_time",
         unit: {:native, :millisecond},
         description: "The time spent waiting for a database connection"
       ),
-      summary("taxolinks.repo.query.idle_time",
+      summary("taxon.repo.query.idle_time",
         unit: {:native, :millisecond},
         description:
           "The time the connection spent waiting before being checked out for the query"
@@ -86,7 +86,7 @@ defmodule TaxolinksWeb.Telemetry do
     [
       # A module, function and arguments to be invoked periodically.
       # This function must call :telemetry.execute/3 and a metric must be added above.
-      # {TaxolinksWeb, :count_users, []}
+      # {TaxonWeb, :count_users, []}
     ]
   end
 end

@@ -1,8 +1,8 @@
-defmodule TaxolinksWeb.LinkLive.Index do
-  use TaxolinksWeb, :live_view
+defmodule TaxonWeb.LinkLive.Index do
+  use TaxonWeb, :live_view
 
-  alias Taxolinks.Links
-  alias Taxolinks.Links.Link
+  alias Taxon.Links
+  alias Taxon.Links.Link
 
   @impl true
   def mount(_params, _session, socket) do
@@ -35,7 +35,7 @@ defmodule TaxolinksWeb.LinkLive.Index do
   end
 
   @impl true
-  def handle_info({TaxolinksWeb.LinkLive.FormComponent, {:saved, link}}, socket) do
+  def handle_info({TaxonWeb.LinkLive.FormComponent, {:saved, link}}, socket) do
     {:noreply, stream_insert(socket, :links, link)}
   end
 

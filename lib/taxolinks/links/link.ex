@@ -1,4 +1,4 @@
-defmodule Taxolinks.Links.Link do
+defmodule Taxon.Links.Link do
   use Ecto.Schema
   import Ecto.Changeset
 

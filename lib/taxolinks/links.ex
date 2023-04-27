@@ -1,11 +1,11 @@
-defmodule Taxolinks.Links do
+defmodule Taxon.Links do
   @moduledoc """
   The Links context.
   """
   use EctoResource
 
-  alias Taxolinks.Repo
-  alias Taxolinks.Links.Link
+  alias Taxon.Repo
+  alias Taxon.Links.Link
 
   using_repo(Repo) do
     resource(Link)

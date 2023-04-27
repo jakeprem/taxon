@@ -1,4 +1,4 @@
-defmodule Taxolinks.Repo.Migrations.CreateLinks do
+defmodule Taxon.Repo.Migrations.CreateLinks do
   use Ecto.Migration
 
   def change do

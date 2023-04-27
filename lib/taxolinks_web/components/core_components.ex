@@ -1,4 +1,4 @@
-defmodule TaxolinksWeb.CoreComponents do
+defmodule TaxonWeb.CoreComponents do
   @moduledoc """
   Provides core UI components.
 
@@ -11,7 +11,7 @@ defmodule TaxolinksWeb.CoreComponents do
   use Phoenix.Component
 
   alias Phoenix.LiveView.JS
-  import TaxolinksWeb.Gettext
+  import TaxonWeb.Gettext
 
   @doc """
   Renders a modal.
@@ -674,9 +674,9 @@ defmodule TaxolinksWeb.CoreComponents do
     # should be written to the errors.po file. The :count option is
     # set by Ecto and indicates we should also apply plural rules.
     if count = opts[:count] do
-      Gettext.dngettext(TaxolinksWeb.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(TaxonWeb.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(TaxolinksWeb.Gettext, "errors", msg, opts)
+      Gettext.dgettext(TaxonWeb.Gettext, "errors", msg, opts)
     end
   end
 

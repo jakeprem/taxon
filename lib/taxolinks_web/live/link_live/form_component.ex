@@ -1,7 +1,7 @@
-defmodule TaxolinksWeb.LinkLive.FormComponent do
-  use TaxolinksWeb, :live_component
+defmodule TaxonWeb.LinkLive.FormComponent do
+  use TaxonWeb, :live_component
 
-  alias Taxolinks.Links
+  alias Taxon.Links
 
   @impl true
   def render(assigns) do

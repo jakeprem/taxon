@@ -1,5 +1,5 @@
-defmodule TaxolinksWeb.Layouts do
-  use TaxolinksWeb, :html
+defmodule TaxonWeb.Layouts do
+  use TaxonWeb, :html
 
   embed_templates "layouts/*"
 end

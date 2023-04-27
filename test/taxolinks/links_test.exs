@@ -1,12 +1,12 @@
-defmodule Taxolinks.LinksTest do
-  use Taxolinks.DataCase
+defmodule Taxon.LinksTest do
+  use Taxon.DataCase
 
-  alias Taxolinks.Links
+  alias Taxon.Links
 
   describe "links" do
-    alias Taxolinks.Links.Link
+    alias Taxon.Links.Link
 
-    import Taxolinks.LinksFixtures
+    import Taxon.LinksFixtures
 
     @invalid_attrs %{destination: nil, name: nil}
 

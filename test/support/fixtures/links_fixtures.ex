@@ -1,7 +1,7 @@
-defmodule Taxolinks.LinksFixtures do
+defmodule Taxon.LinksFixtures do
   @moduledoc """
   This module defines test helpers for creating
-  entities via the `Taxolinks.Links` context.
+  entities via the `Taxon.Links` context.
   """
 
   @doc """
@@ -15,7 +15,7 @@ defmodule Taxolinks.LinksFixtures do
         destination: "some destination",
         name: "some name"
       })
-      |> Taxolinks.Links.create_link()
+      |> Taxon.Links.create_link()
 
     link
   end

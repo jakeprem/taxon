@@ -1,6 +1,6 @@
-defmodule Taxolinks do
+defmodule Taxon do
   @moduledoc """
-  Taxolinks keeps the contexts that define your domain
+  Taxon keeps the contexts that define your domain
   and business logic.
 
   Contexts are also responsible for managing your data, regardless

@@ -1,5 +1,5 @@
-defmodule Taxolinks.Repo do
+defmodule Taxon.Repo do
   use Ecto.Repo,
-    otp_app: :taxolinks,
+    otp_app: :taxon,
     adapter: Ecto.Adapters.SQLite3
 end

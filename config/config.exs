@@ -7,18 +7,18 @@
 # General application configuration
 import Config
 
-config :taxolinks,
-  ecto_repos: [Taxolinks.Repo]
+config :taxon,
+  ecto_repos: [Taxon.Repo]
 
 # Configures the endpoint
-config :taxolinks, TaxolinksWeb.Endpoint,
+config :taxon, TaxonWeb.Endpoint,
   adapter: Bandit.PhoenixAdapter,
   url: [host: "localhost"],
   render_errors: [
-    formats: [html: TaxolinksWeb.ErrorHTML, json: TaxolinksWeb.ErrorJSON],
+    formats: [html: TaxonWeb.ErrorHTML, json: TaxonWeb.ErrorJSON],
     layout: false
   ],
-  pubsub_server: Taxolinks.PubSub,
+  pubsub_server: Taxon.PubSub,
   live_view: [signing_salt: "i6lBqFgc"]
 
 # Configures the mailer
@@ -28,7 +28,7 @@ config :taxolinks, TaxolinksWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :taxolinks, Taxolinks.Mailer, adapter: Swoosh.Adapters.Local
+config :taxon, Taxon.Mailer, adapter: Swoosh.Adapters.Local
 
 # Configure esbuild (the version is required)
 config :esbuild,
