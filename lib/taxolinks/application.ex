@@ -7,6 +7,8 @@ defmodule Taxon.Application do
 
   @impl true
   def start(_type, _args) do
+    Taxon.Release.migrate()
+
     children = [
       # Start the Telemetry supervisor
       TaxonWeb.Telemetry,
