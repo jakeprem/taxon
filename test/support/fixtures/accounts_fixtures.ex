@@ -4,6 +4,8 @@ defmodule Taxon.AccountsFixtures do
   entities via the `Taxon.Accounts` context.
   """
 
+  alias Taxon.InvitesFixtures
+
   def unique_user_email, do: "user#{System.unique_integer()}@example.com"
   def valid_user_password, do: "hello world!"
 
@@ -15,8 +17,11 @@ defmodule Taxon.AccountsFixtures do
   end
 
   def user_fixture(attrs \\ %{}) do
+    invite_code = InvitesFixtures.invite_code_fixture()
+
     {:ok, user} =
       attrs
+      |> Enum.into(%{invite_code: invite_code.code})
       |> valid_user_attributes()
       |> Taxon.Accounts.register_user()
 

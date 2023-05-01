@@ -43,18 +43,27 @@ defmodule Taxon.Accounts.User do
     |> cast(attrs, [:email, :password, :invite_code])
     |> validate_email(opts)
     |> validate_password(opts)
-    |> validate_required([:invite_code])
-    |> prepare_changes(fn changeset ->
-      invite_code = changeset.changes.invite_code
+    |> validate_invite_code()
+  end
 
-      case Invites.get_invite_code_by_code(invite_code) do
-        %InviteCode{active: true} ->
-          changeset
+  defp validate_invite_code(changeset) do
+    if get_field(changeset, :id) == nil do
+      changeset
+      |> validate_required([:invite_code])
+      |> prepare_changes(fn changeset ->
+        invite_code = changeset.changes.invite_code
 
-        _ ->
-          add_error(changeset, :invite_code, "is invalid")
-      end
-    end)
+        case Invites.get_invite_code_by_code(invite_code) do
+          %InviteCode{active: true} ->
+            changeset
+
+          _ ->
+            add_error(changeset, :invite_code, "is invalid")
+        end
+      end)
+    else
+      changeset
+    end
   end
 
   defp validate_email(changeset, opts) do
