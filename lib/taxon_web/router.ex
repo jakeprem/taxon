@@ -19,6 +19,9 @@ defmodule TaxonWeb.Router do
 
   scope "/", TaxonWeb do
     pipe_through :browser
+
+    # get "/", Redirect, to: "/links"
+    get "/", PageController, :home
   end
 
   # Other scopes may use custom stacks.
@@ -62,8 +65,6 @@ defmodule TaxonWeb.Router do
   scope "/", TaxonWeb do
     pipe_through [:browser, :require_authenticated_user]
 
-    get "/", Redirect, to: "/links"
-
     live_session :require_authenticated_user,
       on_mount: [{TaxonWeb.UserAuth, :ensure_authenticated}] do
       live "/users/settings", UserSettingsLive, :edit
@@ -83,8 +84,6 @@ defmodule TaxonWeb.Router do
       live "/invite_codes/:id", InviteCodeLive.Show, :show
       live "/invite_codes/:id/show/edit", InviteCodeLive.Show, :edit
     end
-
-    get "/*path", PageController, :stuff
   end
 
   scope "/", TaxonWeb do
@@ -97,5 +96,12 @@ defmodule TaxonWeb.Router do
       live "/users/confirm/:token", UserConfirmationLive, :edit
       live "/users/confirm", UserConfirmationInstructionsLive, :new
     end
+  end
+
+  # Last of all, anything that doesn't match above will do the actual link lookup
+  scope "/", TaxonWeb do
+    pipe_through [:browser, :require_authenticated_user]
+
+    get "/*path", PageController, :stuff
   end
 end
