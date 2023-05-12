@@ -1,0 +1,27 @@
+<.header>
+  Invite code <%= @invite_code.id %>
+  <:subtitle>This is a invite_code record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/invite_codes/#{@invite_code}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit invite_code</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Code"><%= @invite_code.code %></:item>
+  <:item title="Active"><%= @invite_code.active %></:item>
+</.list>
+
+<.back navigate={~p"/invite_codes"}>Back to invite_codes</.back>
+
+<.modal :if={@live_action == :edit} id="invite_code-modal" show on_cancel={JS.patch(~p"/invite_codes/#{@invite_code}")}>
+  <.live_component
+    module={TaxonWeb.InviteCodeLive.FormComponent}
+    id={@invite_code.id}
+    title={@page_title}
+    action={@live_action}
+    invite_code={@invite_code}
+    patch={~p"/invite_codes/#{@invite_code}"}
+  />
+</.modal>

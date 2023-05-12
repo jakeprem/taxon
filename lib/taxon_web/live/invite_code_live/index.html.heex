@@ -1,0 +1,47 @@
+<.header>
+  Listing Invite codes
+  <:actions>
+    <.link patch={~p"/invite_codes/new"}>
+      <.button>New Invite code</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="invite_codes"
+  rows={@streams.invite_codes}
+  row_click={fn {_id, invite_code} -> JS.navigate(~p"/invite_codes/#{invite_code}") end}
+>
+  <:col :let={{_id, invite_code}} label="Code"><%= invite_code.code %></:col>
+  <:col :let={{_id, invite_code}} label="Active"><%= invite_code.active %></:col>
+  <:action :let={{_id, invite_code}}>
+    <div class="sr-only">
+      <.link navigate={~p"/invite_codes/#{invite_code}"}>Show</.link>
+    </div>
+    <.link patch={~p"/invite_codes/#{invite_code}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, invite_code}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: invite_code.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal
+  :if={@live_action in [:new, :edit]}
+  id="invite_code-modal"
+  show
+  on_cancel={JS.navigate(~p"/invite_codes")}
+>
+  <.live_component
+    module={TaxonWeb.InviteCodeLive.FormComponent}
+    id={@invite_code.id || :new}
+    title={@page_title}
+    action={@live_action}
+    invite_code={@invite_code}
+    patch={~p"/invite_codes"}
+  />
+</.modal>

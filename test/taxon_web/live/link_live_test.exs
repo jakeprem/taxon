@@ -1,11 +1,16 @@
 defmodule TaxonWeb.LinkLiveTest do
   use TaxonWeb.ConnCase
+  @moduletag login: true
 
   import Phoenix.LiveViewTest
   import Taxon.LinksFixtures
 
-  @create_attrs %{destination: "some destination", name: "some name"}
-  @update_attrs %{destination: "some updated destination", name: "some updated name"}
+  @create_attrs %{destination: "some destination", name: "some name", key: "some key"}
+  @update_attrs %{
+    destination: "some updated destination",
+    name: "some updated name",
+    key: "some updated key"
+  }
   @invalid_attrs %{destination: nil, name: nil}
 
   defp create_link(_) do
