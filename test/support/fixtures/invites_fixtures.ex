@@ -12,7 +12,7 @@ defmodule Taxon.InvitesFixtures do
       attrs
       |> Enum.into(%{
         active: true,
-        code: "some code"
+        code: Taxon.Utils.get_random_string()
       })
       |> Taxon.Invites.create_invite_code()
 

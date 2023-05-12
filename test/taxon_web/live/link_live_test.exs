@@ -1,5 +1,6 @@
 defmodule TaxonWeb.LinkLiveTest do
   use TaxonWeb.ConnCase
+  @moduletag login: true
 
   import Phoenix.LiveViewTest
   import Taxon.LinksFixtures

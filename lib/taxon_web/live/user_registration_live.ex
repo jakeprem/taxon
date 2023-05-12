@@ -3,8 +3,6 @@ defmodule TaxonWeb.UserRegistrationLive do
 
   alias Taxon.Accounts
   alias Taxon.Accounts.User
-  alias Taxon.Invites
-  alias Taxon.Invites.InviteCode
 
   def render(assigns) do
     ~H"""

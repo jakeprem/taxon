@@ -4,6 +4,7 @@ defmodule Taxon.AccountsTest do
   alias Taxon.Accounts
 
   import Taxon.AccountsFixtures
+  import Taxon.InvitesFixtures
   alias Taxon.Accounts.{User, UserToken}
 
   describe "get_user_by_email/1" do
@@ -86,7 +87,12 @@ defmodule Taxon.AccountsTest do
 
     test "registers users with a hashed password" do
       email = unique_user_email()
-      {:ok, user} = Accounts.register_user(valid_user_attributes(email: email))
+
+      invite_code = invite_code_fixture()
+
+      {:ok, user} =
+        Accounts.register_user(valid_user_attributes(email: email, invite_code: invite_code.code))
+
       assert user.email == email
       assert is_binary(user.hashed_password)
       assert is_nil(user.confirmed_at)
@@ -97,17 +103,19 @@ defmodule Taxon.AccountsTest do
   describe "change_user_registration/2" do
     test "returns a changeset" do
       assert %Ecto.Changeset{} = changeset = Accounts.change_user_registration(%User{})
-      assert changeset.required == [:password, :email]
+      assert changeset.required == [:invite_code, :password, :email]
     end
 
     test "allows fields to be set" do
       email = unique_user_email()
       password = valid_user_password()
 
+      %{code: invite_code} = invite_code_fixture()
+
       changeset =
         Accounts.change_user_registration(
           %User{},
-          valid_user_attributes(email: email, password: password)
+          valid_user_attributes(email: email, password: password, invite_code: invite_code)
         )
 
       assert changeset.valid?

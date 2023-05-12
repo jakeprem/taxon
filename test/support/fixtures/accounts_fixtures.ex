@@ -10,9 +10,12 @@ defmodule Taxon.AccountsFixtures do
   def valid_user_password, do: "hello world!"
 
   def valid_user_attributes(attrs \\ %{}) do
+    %{code: invite_code} = InvitesFixtures.invite_code_fixture()
+
     Enum.into(attrs, %{
       email: unique_user_email(),
-      password: valid_user_password()
+      password: valid_user_password(),
+      invite_code: invite_code
     })
   end
 

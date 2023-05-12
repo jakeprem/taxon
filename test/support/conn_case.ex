@@ -33,7 +33,11 @@ defmodule TaxonWeb.ConnCase do
 
   setup tags do
     Taxon.DataCase.setup_sandbox(tags)
-    {:ok, conn: Phoenix.ConnTest.build_conn()}
+
+    case tags[:login] do
+      nil -> {:ok, conn: Phoenix.ConnTest.build_conn()}
+      _ -> {:ok, register_and_log_in_user(%{conn: Phoenix.ConnTest.build_conn()})}
+    end
   end
 
   @doc """

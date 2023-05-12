@@ -1,5 +1,6 @@
 defmodule TaxonWeb.InviteCodeLiveTest do
   use TaxonWeb.ConnCase
+  @moduletag login: true
 
   import Phoenix.LiveViewTest
   import Taxon.InvitesFixtures
@@ -72,7 +73,10 @@ defmodule TaxonWeb.InviteCodeLiveTest do
     test "deletes invite_code in listing", %{conn: conn, invite_code: invite_code} do
       {:ok, index_live, _html} = live(conn, ~p"/invite_codes")
 
-      assert index_live |> element("#invite_codes-#{invite_code.id} a", "Delete") |> render_click()
+      assert index_live
+             |> element("#invite_codes-#{invite_code.id} a", "Delete")
+             |> render_click()
+
       refute has_element?(index_live, "#invite_codes-#{invite_code.id}")
     end
   end
