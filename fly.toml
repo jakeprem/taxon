@@ -14,11 +14,11 @@ processes = []
 [env]
   PHX_HOST = "taxon.fly.dev"
   PORT = "8080"
-  DATABASE_PATH = "/mnt/taxon_db/taxon.db"
+  DATABASE_PATH = "/litefs/db"
 
 [mounts]
   source="taxon_db"
-  destination="/mnt/taxon_db"
+  destination="/var/lib/litefs"
 
 [experimental]
   auto_rollback = true
