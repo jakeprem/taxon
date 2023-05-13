@@ -1,0 +1,20 @@
+fuse:
+  dir: "/litefs"
+  allow-other: true
+
+data:
+  dir: "/var/lib/litefs"
+
+# exec:
+#   - cmd: "/app/bin/server"
+
+lease:
+  type: "consul"
+  candidate: ${FLY_REGION == PRIMARY_REGION}
+  promote: true
+  advertise-url: "http://${FLY_ALLOC_ID}.vm.${FLY_APP_NAME}.internal.20202"
+  consul:
+    url: "${FLY_CONSUL_URL}"
+    key: "#{FLY_APP_NAME}/primary"
+  # type: "static"
+  # candidate: true

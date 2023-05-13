@@ -21,7 +21,7 @@ ARG RUNNER_IMAGE="debian:${DEBIAN_VERSION}"
 FROM ${BUILDER_IMAGE} as builder
 
 # install build dependencies
-RUN apt-get update -y && apt-get install -y build-essential git \
+RUN apt-get update -y && apt-get install -y build-essential git fuse3 \
     && apt-get clean && rm -f /var/lib/apt/lists/*_*
 
 # prepare build dir
@@ -33,6 +33,9 @@ RUN mix local.hex --force && \
 
 # set build ENV
 ENV MIX_ENV="prod"
+
+COPY ./litefs.yml ./
+COPY ./fuse.conf /etc/fuse.conf
 
 # install mix dependencies
 COPY mix.exs mix.lock ./
@@ -67,8 +70,17 @@ RUN mix release
 # the compiled release and other runtime necessities
 FROM ${RUNNER_IMAGE}
 
-RUN apt-get update -y && apt-get install -y libstdc++6 openssl libncurses5 locales \
+RUN mkdir /litefs
+RUN chown -R nobody:root /litefs
+RUN mkdir /var/lib/litefs
+RUN chown -R nobody:root /var/lib/litefs
+
+RUN apt-get update -y && apt-get install -y libstdc++6 openssl libncurses5 locales fuse3 sqlite3 ca-certificates curl kmod \
   && apt-get clean && rm -f /var/lib/apt/lists/*_*
+
+COPY --from=flyio/litefs:main /usr/local/bin/litefs /usr/bin/litefs
+COPY --from=builder --chown=nobody:root /app/litefs.yml /etc/litefs.yml
+COPY --from=builder --chown=nobody:root /etc/fuse.conf /etc/fuse.conf
 
 # Set the locale
 RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
@@ -88,7 +100,8 @@ COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/taxon ./
 
 USER nobody
 
-CMD ["/app/bin/server"]
+# CMD ["/app/bin/server"]
+ENTRYPOINT litefs mount
 
 # Appended by flyctl
 ENV ECTO_IPV6 true
