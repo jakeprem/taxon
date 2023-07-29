@@ -6,20 +6,6 @@ import Config
 # and secrets from environment variables or elsewhere. Do not define
 # any compile-time configuration in here, as it won't be applied.
 # The block below contains prod specific runtime configuration.
-
-# ## Using releases
-#
-# If you use `mix release`, you need to explicitly enable the server
-# by passing the PHX_SERVER=true when you start it:
-#
-#     PHX_SERVER=true bin/taxon start
-#
-# Alternatively, you can use `mix phx.gen.release` to generate a `bin/server`
-# script that automatically sets the env var above.
-if System.get_env("PHX_SERVER") do
-  config :taxon, TaxonWeb.Endpoint, server: true
-end
-
 if config_env() == :prod do
   database_path =
     System.get_env("DATABASE_PATH") ||
@@ -44,27 +30,31 @@ if config_env() == :prod do
       You can generate one by calling: mix phx.gen.secret
       """
 
-  host = System.get_env("PHX_HOST") || "example.com"
-  port = String.to_integer(System.get_env("PORT") || "4000")
-
-  config :taxon, TaxonWeb.Endpoint,
-    url: [host: host, port: 443, scheme: "https"],
+  config :taxon_web, TaxonWeb.Endpoint,
     http: [
       # Enable IPv6 and bind on all interfaces.
       # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.
-      # See the documentation on https://hexdocs.pm/plug_cowboy/Plug.Cowboy.html
-      # for details about using IPv6 vs IPv4 and loopback vs public addresses.
       ip: {0, 0, 0, 0, 0, 0, 0, 0},
-      port: port
+      port: String.to_integer(System.get_env("PORT") || "4000")
     ],
     secret_key_base: secret_key_base
+
+  # ## Using releases
+  #
+  # If you are doing OTP releases, you need to instruct Phoenix
+  # to start each relevant endpoint:
+  #
+  #     config :taxon_web, TaxonWeb.Endpoint, server: true
+  #
+  # Then you can assemble a release by calling `mix release`.
+  # See `mix help release` for more information.
 
   # ## SSL Support
   #
   # To get SSL working, you will need to add the `https` key
   # to your endpoint configuration:
   #
-  #     config :taxon, TaxonWeb.Endpoint,
+  #     config :taxon_web, TaxonWeb.Endpoint,
   #       https: [
   #         ...,
   #         port: 443,
@@ -86,7 +76,7 @@ if config_env() == :prod do
   # We also recommend setting `force_ssl` in your endpoint, ensuring
   # no data is ever sent via http, always redirecting to https:
   #
-  #     config :taxon, TaxonWeb.Endpoint,
+  #     config :taxon_web, TaxonWeb.Endpoint,
   #       force_ssl: [hsts: true]
   #
   # Check `Plug.SSL` for all available options in `force_ssl`.

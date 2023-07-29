@@ -22,9 +22,5 @@ erl_crash.dump
 # Temporary files, for example, from tests.
 /tmp/
 
-
-# Database files
-*.db
-*.db-*
-
-.git_umbrella_only
+# Ignore package tarball (built via "mix hex.build").
+taxon-*.tar

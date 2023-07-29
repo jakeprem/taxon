@@ -13,14 +13,14 @@ config :taxon, Taxon.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with esbuild to bundle .js and .css sources.
-config :taxon, TaxonWeb.Endpoint,
+config :taxon_web, TaxonWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
   http: [ip: {127, 0, 0, 1}, port: 4000],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "USC5fr0SVYRRrTYUwYQ4qkNMKDvpTJ9EiOL9MBbHQxvKtw8TSERKUO0y5SxN9g2v",
+  secret_key_base: "ygiMj1xgMvs842D4r7gGpfmee4bHov9Q3A/DXIbB+Nhu6+QmYn5W8hexmnoybGyi",
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
     tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
@@ -50,7 +50,7 @@ config :taxon, TaxonWeb.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :taxon, TaxonWeb.Endpoint,
+config :taxon_web, TaxonWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
@@ -60,17 +60,17 @@ config :taxon, TaxonWeb.Endpoint,
   ]
 
 # Enable dev routes for dashboard and mailbox
-config :taxon, dev_routes: true
+config :taxon_web, dev_routes: true
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
-
-# Set a higher stacktrace during development. Avoid configuring such
-# in production as building large stacktraces may be expensive.
-config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
 
 # Disable swoosh api client as it is only required for production adapters.
 config :swoosh, :api_client, false
+
+# Set a higher stacktrace during development. Avoid configuring such
+# in production as building large stacktraces may be expensive.
+config :phoenix, :stacktrace_depth, 20

@@ -1,25 +1,17 @@
-# This file is responsible for configuring your application
-# and its dependencies with the aid of the Config module.
+# This file is responsible for configuring your umbrella
+# and **all applications** and their dependencies with the
+# help of the Config module.
 #
-# This configuration file is loaded before any dependency and
-# is restricted to this project.
-
-# General application configuration
+# Note that all applications in your umbrella share the
+# same configuration and dependencies, which is why they
+# all use the same configuration file. If you want different
+# configurations or dependencies per app, it is best to
+# move said applications out of the umbrella.
 import Config
 
+# Configure Mix tasks and generators
 config :taxon,
   ecto_repos: [Taxon.Repo]
-
-# Configures the endpoint
-config :taxon, TaxonWeb.Endpoint,
-  adapter: Bandit.PhoenixAdapter,
-  url: [host: "localhost"],
-  render_errors: [
-    formats: [html: TaxonWeb.ErrorHTML, json: TaxonWeb.ErrorJSON],
-    layout: false
-  ],
-  pubsub_server: Taxon.PubSub,
-  live_view: [signing_salt: "i6lBqFgc"]
 
 # Configures the mailer
 #
@@ -30,13 +22,27 @@ config :taxon, TaxonWeb.Endpoint,
 # at the `config/runtime.exs`.
 config :taxon, Taxon.Mailer, adapter: Swoosh.Adapters.Local
 
+config :taxon_web,
+  ecto_repos: [Taxon.Repo],
+  generators: [context_app: :taxon]
+
+# Configures the endpoint
+config :taxon_web, TaxonWeb.Endpoint,
+  url: [host: "localhost"],
+  render_errors: [
+    formats: [html: TaxonWeb.ErrorHTML, json: TaxonWeb.ErrorJSON],
+    layout: false
+  ],
+  pubsub_server: Taxon.PubSub,
+  live_view: [signing_salt: "hExfTXll"]
+
 # Configure esbuild (the version is required)
 config :esbuild,
   version: "0.14.41",
   default: [
     args:
       ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
-    cd: Path.expand("../assets", __DIR__),
+    cd: Path.expand("../apps/taxon_web/assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
 
@@ -49,7 +55,7 @@ config :tailwind,
       --input=css/app.css
       --output=../priv/static/assets/app.css
     ),
-    cd: Path.expand("../assets", __DIR__)
+    cd: Path.expand("../apps/taxon_web/assets", __DIR__)
   ]
 
 # Configures Elixir's Logger
