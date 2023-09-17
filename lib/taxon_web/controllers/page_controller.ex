@@ -1,8 +1,8 @@
 defmodule TaxonWeb.PageController do
   use TaxonWeb, :controller
 
+  alias Taxon.LinkExpander
   alias Taxon.Links
-  alias Taxon.Links.Link
 
   def home(conn, _params) do
     # The home page is often custom made,
@@ -19,16 +19,9 @@ defmodule TaxonWeb.PageController do
         redirect(conn, to: ~p"/links/new?key=#{key}")
 
       link ->
-        redirect_url = build_redirect_url(link, pieces)
+        redirect_url = LinkExpander.expand_link(link, pieces)
 
-        conn
-        |> redirect(external: redirect_url)
+        redirect(conn, external: redirect_url)
     end
-  end
-
-  def build_redirect_url(%Link{} = link, pieces) do
-    Enum.reduce(pieces, link.destination, fn piece, acc ->
-      String.replace(acc, "%s", piece, global: false)
-    end)
   end
 end

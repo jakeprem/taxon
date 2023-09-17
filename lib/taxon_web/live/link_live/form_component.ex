@@ -2,6 +2,9 @@ defmodule TaxonWeb.LinkLive.FormComponent do
   use TaxonWeb, :live_component
 
   alias Taxon.Links
+  alias Taxon.Links.Link
+
+  @parser_options Ecto.Enum.values(Link, :parser)
 
   @impl true
   def render(assigns) do
@@ -21,7 +24,17 @@ defmodule TaxonWeb.LinkLive.FormComponent do
       >
         <.input field={@form[:name]} type="text" label="Name" />
         <.input field={@form[:key]} type="text" label="Key" />
-        <.input field={@form[:destination]} type="text" label="Destination" />
+        <.input field={@form[:description]} type="text" label="Description" />
+        <%= if @destination_field_type == "textarea" do %>
+          <.input field={@form[:destination]} type="textarea" label="Destination" rows="4" />
+        <% else %>
+          <.input field={@form[:destination]} type="text" label="Destination" />
+        <% end %>
+        <details>
+          <summary>Parser Options</summary>
+          <.input field={@form[:parser]} type="select" options={@parser_options} label="Parser" />
+          <.input field={@form[:parser_version]} type="number" label="Parser Version" />
+        </details>
         <:actions>
           <.button phx-disable-with="Saving...">Save Link</.button>
         </:actions>
@@ -37,6 +50,7 @@ defmodule TaxonWeb.LinkLive.FormComponent do
     {:ok,
      socket
      |> assign(assigns)
+     |> assign(parser_options: @parser_options)
      |> assign_form(changeset)}
   end
 
@@ -85,7 +99,18 @@ defmodule TaxonWeb.LinkLive.FormComponent do
   end
 
   defp assign_form(socket, %Ecto.Changeset{} = changeset) do
-    assign(socket, :form, to_form(changeset))
+    socket
+    |> assign(:form, to_form(changeset))
+    |> assign(:destination_field_type, destination_field_type(changeset))
+  end
+
+  defp destination_field_type(changeset) do
+    import Ecto.Changeset
+
+    case get_field(changeset, :parser) do
+      :liquex -> "textarea"
+      _ -> "text"
+    end
   end
 
   defp notify_parent(msg), do: send(self(), {__MODULE__, msg})
