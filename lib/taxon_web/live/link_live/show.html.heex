@@ -11,6 +11,8 @@
 <.list>
   <:item title="Name"><%= @link.name %></:item>
   <:item title="Key"><%= @link.key %></:item>
+  <:item title="Description"><%= @link.description %></:item>
+  <:item title="Parser"><%= @link.parser |> to_string() |> String.capitalize() %> <%= @link.parser_version %></:item>
   <:item title="Destination"><%= @link.destination %></:item>
 </.list>
 

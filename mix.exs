@@ -51,7 +51,8 @@ defmodule Taxon.MixProject do
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
-      {:ecto_resource, "1.3.3"}
+      {:ecto_resource, "1.3.3"},
+      {:liquex, "~> 0.10"}
     ]
   end
 
