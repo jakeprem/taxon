@@ -7,10 +7,11 @@ defmodule TaxonWeb.PageController do
   def home(conn, _params) do
     # The home page is often custom made,
     # so skip the default app layout.
-    render(conn, :home, layout: false, user: conn.assigns.current_user)
+    # render(conn, :home, layout: false, user: conn.assigns.current_user)
+    redirect(conn, to: "/links")
   end
 
-  def stuff(conn, params) do
+  def execute_link(conn, params) do
     %{"path" => [key | pieces]} = params
 
     case Links.get_link_by_key(key) do

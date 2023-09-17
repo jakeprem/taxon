@@ -102,6 +102,6 @@ defmodule TaxonWeb.Router do
   scope "/", TaxonWeb do
     pipe_through [:browser, :require_authenticated_user]
 
-    get "/*path", PageController, :stuff
+    get "/*path", PageController, :execute_link
   end
 end

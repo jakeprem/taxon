@@ -33,8 +33,8 @@ defmodule Taxon.MixProject do
   defp deps do
     [
       {:bcrypt_elixir, "~> 3.0"},
-      {:bandit, "~> 0.6.9"},
-      {:phoenix, "~> 1.7.1"},
+      {:bandit, "~> 0.7"},
+      {:phoenix, "~> 1.7"},
       {:phoenix_ecto, "~> 4.4"},
       {:ecto_sql, "~> 3.6"},
       {:ecto_sqlite3, ">= 0.0.0"},
@@ -44,7 +44,7 @@ defmodule Taxon.MixProject do
       {:floki, ">= 0.30.0", only: :test},
       {:phoenix_live_dashboard, "~> 0.7.2"},
       {:esbuild, "~> 0.5", runtime: Mix.env() == :dev},
-      {:tailwind, "~> 0.1.8", runtime: Mix.env() == :dev},
+      {:tailwind, "~> 0.2.1", runtime: Mix.env() == :dev},
       {:swoosh, "~> 1.3"},
       {:finch, "~> 0.13"},
       {:telemetry_metrics, "~> 0.6"},
