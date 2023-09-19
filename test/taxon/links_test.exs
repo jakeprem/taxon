@@ -2,6 +2,8 @@ defmodule Taxon.LinksTest do
   use Taxon.DataCase
 
   alias Taxon.Links
+  alias Taxon.Links.Link
+  alias Taxon.Links.LinkViewCounter
 
   describe "links" do
     alias Taxon.Links.Link
@@ -63,6 +65,15 @@ defmodule Taxon.LinksTest do
     test "change_link/1 returns a link changeset" do
       link = link_fixture()
       assert %Ecto.Changeset{} = Links.change_link(link)
+    end
+  end
+
+  describe "increment_link_view_counter/1" do
+    test "increments the view counter for the given link" do
+      link = Taxon.LinksFixtures.link_fixture()
+
+      assert {:ok, %LinkViewCounter{count: 1}} = Taxon.Links.increment_link_view_counter!(link)
+      assert {:ok, %LinkViewCounter{count: 2}} = Taxon.Links.increment_link_view_counter!(link)
     end
   end
 end

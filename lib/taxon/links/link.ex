@@ -7,6 +7,10 @@ defmodule Taxon.Links.Link do
     field :key, :string
     field :name, :string
 
+    field :views, :integer, virtual: true
+
+    has_one :view_counter, Taxon.Links.LinkViewCounter
+
     timestamps()
   end
 

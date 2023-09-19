@@ -19,9 +19,10 @@ defmodule Taxon.Application do
       # Start Finch
       {Finch, name: Taxon.Finch},
       # Start the Endpoint (http/https)
-      TaxonWeb.Endpoint
+      TaxonWeb.Endpoint,
       # Start a worker by calling: Taxon.Worker.start_link(arg)
       # {Taxon.Worker, arg}
+      {Task.Supervisor, name: Taxon.Links.CounterSupervisor}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

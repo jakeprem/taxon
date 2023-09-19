@@ -6,7 +6,7 @@ defmodule TaxonWeb.LinkLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :links, Links.list_links())}
+    {:ok, stream(socket, :links, Links.list_links_with_views())}
   end
 
   @impl true

@@ -1,6 +1,7 @@
 defmodule TaxonWeb.PageController do
   use TaxonWeb, :controller
 
+  alias Taxon.Links.CounterSupervisor
   alias Taxon.Links
   alias Taxon.Links.Link
 
@@ -20,6 +21,8 @@ defmodule TaxonWeb.PageController do
 
       link ->
         redirect_url = build_redirect_url(link, pieces)
+
+        CounterSupervisor.start_view_increment(link)
 
         conn
         |> redirect(external: redirect_url)
